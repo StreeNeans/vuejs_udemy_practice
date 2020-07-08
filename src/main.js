@@ -1,8 +1,10 @@
 import Vue from 'vue'
-import App from './App.vue'
+import AppEep from './App.vue'
 
 
 new Vue({
-  el: '#container',
-  render: h => h(App)
+  el: '#eep',
+  render: h => h(AppEep)
 })
+
+
