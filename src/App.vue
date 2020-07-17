@@ -3,12 +3,16 @@
     <div class="row" >
       <div class="col-xs-12">
         <button @click="selectedComponent = 'appQuote'">Just Quotes</button>
-        <button @click="selectedComponent = 'appAuhor'">Quotes by Authors</button>
-        <button @click="selectedComponent = 'appNew'">News Quotes</button>
-        <app-quote> 
+        <button @click="selectedComponent = 'appAuthor'">Quotes by Authors</button>
+        <button @click="selectedComponent = 'appNew'">New Quotes</button>
+        <hr>
+         <p>{{ selectedComponent}}</p>
+        <component :is="selectedComponent">
+        </component>
+        <!--<app-quote>
             <h2 slot="title" >{{ quoteTitle }}</h2>
-          <p slot="content">To be, or not to be. ThAT is the question.</p>
-        </app-quote>
+          <p slot="content">To be, or not to be: that is the question.</p>
+        </app-quote> -->
       </div>
     </div>
   </div>
@@ -22,7 +26,7 @@ export default {
   name: "eep",
   data: () => ({
       quoteTitle:'¸,ø¤º°`°º¤ø,¸¸,ø¤º° Quotez °º¤ø,¸¸,ø¤º°`°º¤ø,¸',
-      
+      selectedComponent: 'appQuote',
   }),
 
   components: {
