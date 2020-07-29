@@ -1,65 +1,190 @@
+<!--T E M P L A T E-->
+
 <template>
-  <div class="eep">
-    <div class="row" >
-      <div class="col-xs-12">
-        <button @click="selectedComponent = 'appQuote'">Just Quotes</button>
-        <button @click="selectedComponent = 'appAuthor'">Quotes by Authors</button>
-        <button @click="selectedComponent = 'appNew'">New Quotes</button>
+    <div class="childscalmsdowns">
+        <form>
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                    <h1>File a Complaint</h1>
+                    <hr>
+                    <div class="form-group">
+                        <label for="email">Mail</label>
+                        <input
+                                type="text"
+                                id="email"
+                                class="form-control"
+                                v-model="userData.email"
+                                >
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input
+                                type="password"
+                                id="password"
+                                class="form-control"
+                                v-model.lazy="userData.password"
+                                >
+                                <p>{{ userData.password }}</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input
+                                type="number"
+                                id="age"
+                                class="form-control"
+                                v-model="userData.age"
+                                >
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 form-group">
+                    <label for="message">Message</label><br>
+                    <!-- Interpolation between <textarea>{{ test }}</textarea> doesn't work!-->
+                    <textarea
+                            id="message"
+                            rows="5"
+                            class="form-control"
+                            v-model=" message "></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                    <div class="form-group">
+                        <label for="sendmail">
+                            <input
+                                    type="checkbox"
+                                    id="sendmail"
+                                    value="SendMail"
+                                    v-model="sendMail"
+                                    > Send Mail
+                        </label>
+                        <label for="sendInfomail">
+                            <input
+                                    type="checkbox"
+                                    id="sendInfomail"
+                                    value="SendInfoMail"
+                                    v-model="sendMail"
+                                    > Send Infomail
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 form-group">
+                    <label for="male">
+                        <input
+                                type="radio"
+                                id="male"
+                                value="Male"
+                                v-model="gender"
+                                > Male
+                    </label>
+                    <label for="female">
+                        <input
+                                type="radio"
+                                id="female"
+                                value="Female"
+                                v-model="gender"
+                                > Female
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 from-group">
+                    <label for="priority">Priority</label>
+                    <select
+                            id="priority"
+                            class="form-control"
+                            v-model="selectedPriority"
+                            >
+                        <option 
+                        v-for="priority in priorities" v-bind:key="priority" :selected="priority == Medium">
+                        {{ priority }}</option>
+                    </select>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                    <app-switch v-model="dataSwitch"></app-switch>
+                    <button
+                            class="btn btn-primary"
+                            @click.prevent="submitted">Submit!
+                    </button>
+                </div>
+            </div>
+        </form>
         <hr>
-         <p>{{ selectedComponent}}</p>
-        <component :is="selectedComponent">
-        </component>
-        <!--<app-quote>
-            <h2 slot="title" >{{ quoteTitle }}</h2>
-          <p slot="content">To be, or not to be: that is the question.</p>
-        </app-quote> -->
-      </div>
+        <div class="row" v-if="isSubmitted">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Your Data</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>Mail: {{ userData.email }}</p>
+                        <p>Password: {{ userData.password }}</p>
+                        <p>Age: {{ userData.age }} </p>
+                        <p style="white-space: pre">Message: {{ message }}</p>
+                        <p><strong>Send Mail?</strong></p>
+                        <ul>
+                            <li v-for="item in sendMail" v-bind:key="item">{{ item }}</li>
+                        </ul>
+                        <p>Gender: {{ gender }}</p>
+                        <p>Priority: {{ selectedPriority }}</p>
+                        <p>Switched: {{ dataSwitch }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
-<script>
-import QoutehQuotey from "./componentz/Quoteey.vue";
-import Thorsday from "./componentz/Thor.vue";
-import Newzyboyz from "./componentz/Newzflash.vue";
-export default {
-  name: "eep",
-  data: () => ({
-      quoteTitle:'¸,ø¤º°`°º¤ø,¸¸,ø¤º° Quotez °º¤ø,¸¸,ø¤º°`°º¤ø,¸',
-      selectedComponent: 'appQuote',
-  }),
+<!--T E M P L A T E-->
 
-  components: {
-    appQuote: QoutehQuotey,
-    appAuthor: Thorsday,
-    appNew: Newzyboyz,
-  }
-};
+<!-- --------------------------- -->
+
+<!-- S C R I P T -->
+
+<script>
+    import CalmedsChilds from './Switcheroo.vue'
+    export default {
+      data:() => ({
+        userData: {
+            email:'',
+            password:'',
+            age:'0',
+        },
+        message:'*Insert complaint here*',
+        sendMail:[],
+        gender:'Male',
+        selectedPriority:'High',
+        priorities:['High', 'Medium', 'Low'],
+        dataSwitch: true,
+        isSubmitted:false
+      }),
+        methods:{
+            submitted() {
+                this.isSubmitted= true;
+            }
+        },
+      components: {
+          appSwitch: CalmedsChilds
+      }
+    }
 </script>
 
-<style >
-h2 {
-    color: rgb(201, 174, 209);
-}
+<!-- S C R I P T -->
 
-p {
-    font-size: 15px;
-}
+<!-- --------------------------- -->
 
+<!-- S T Y L E-->
 
+<style>
 
-.div {
-    border: 1px solid rgb(216, 130, 177);
-    box-shadow: 1px 1px 2px rgba(107, 68, 101, 0.726);
-    padding: 30px;
-    margin: 10px auto;
-    text-align: center;
-    font-family: cursive;
-}
 </style>
 
-TeMpLaTe
-
-  quote="(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ !Wondahfhul Qhuotez Hereh! 。.:☆*:･'(o∑=)"
-  
-     
+<!-- S T Y L E-->

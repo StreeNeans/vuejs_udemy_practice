@@ -1,10 +1,16 @@
 import Vue from 'vue'
-import AppEep from './App.vue'
-
+import CalmsDownsChilds from './App.vue'
+import CalmedsChilds from './Switcheroo.vue'
 
 new Vue({
-  el: '#eep',
-  render: h => h(AppEep)
+  el: '#childscalmsdowns',
+  render: h => h(CalmsDownsChilds)
+}),
+
+new Vue({
+  el: '#childscalmedsdowns',
+  render: h => h(CalmedsChilds)
 })
+
 
 
