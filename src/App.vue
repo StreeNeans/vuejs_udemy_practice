@@ -5,7 +5,12 @@
         <div class="row">
             <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                 <h1>Filters & Mixins</h1>
-                <p>{{ text }}</p>
+                <p>{{ text | toUpperCase | tolowerCase}}</p>
+                <hr>
+                <input v-model="filterText">
+                <ul>
+                    <li v-for="fruit in filteredFruits" v-bind:key="fruit" >{{ fruit }}</li>
+                </ul>
             </div> 
         </div>
     </div>
@@ -21,18 +26,27 @@
     export default {
       data:() => ({
           text:'Hewo There Fren!',
+          fruits: ['Acerola', 'Apricots','Avocado','Blackberries','Berries','Berry','Blackcurrant','Blueberries','Breadfruit','Cantaloepe','Carambola','Cherimoya','Cherries','Clementine','Coconut','Coconut Meat','Cranberries','Custard-Apple','Custard Apple','Date','Dates','Date Fruit','Durian'],
+          filterText:'',
       }),
       filters: {
-          touppercase(value) {
-
+          toUpperCase(value) {
+              return value.toUpperCase();
           },
+      },
+      computed: {
+          filteredFruits() {
+              return this.fruits.filter((element) => {
+                  return element.match(this.filterText);
+              });
+          }
       },
         
     }
 </script>
 
 <!-- S C R I P T -->
-
+     b      
 <!-- --------------------------- -->
 
 <!-- S T Y L E-->
@@ -41,4 +55,4 @@
 
 </style>
 
-<!-- S T Y L E-->
+<!-- S T Y L E-->      

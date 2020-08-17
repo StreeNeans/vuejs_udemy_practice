@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import CalmsDownsChilds from './App.vue'
 
-Vue.filter('to-lowercase');
+Vue.filter('tolowerCase', function(value){
+  return value.toLowerCase();
+});
 
 new Vue({
   el: '#childscalmsdowns',
